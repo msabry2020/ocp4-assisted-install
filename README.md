@@ -15,7 +15,8 @@ gcloud compute instances create ocp-kvm \
     --shielded-vtpm \
     --shielded-integrity-monitoring \
     --labels=goog-ec-src=vm_add-gcloud \
-    --reservation-affinity=any
+    --reservation-affinity=any \
+    --enable-nested-virtualization
 
 sudo dnf -y install git
 git clone https://github.com/msabry2020/ocp4-assisted-install.git
