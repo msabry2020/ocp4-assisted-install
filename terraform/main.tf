@@ -18,8 +18,7 @@ resource "libvirt_network" "ocp_network" {
   dhcp {
     enabled = true
   }
-  xml {
-    XSLT = file("network.xml")
+  xml = file("network.xml")
   }
 }
 
