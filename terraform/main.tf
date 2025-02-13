@@ -18,7 +18,9 @@ resource "libvirt_network" "ocp_network" {
   dhcp {
     enabled = true
   }
-  xml = file("network.xml")
+  xml {
+    xml = file("network.xml")
+  }
 }
 
 # Base volume for master nodes
