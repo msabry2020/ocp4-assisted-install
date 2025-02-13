@@ -19,7 +19,6 @@ resource "libvirt_network" "ocp_network" {
     enabled = true
   }
   xml = file("network.xml")
-  }
 }
 
 # Base volume for master nodes
