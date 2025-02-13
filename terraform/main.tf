@@ -19,7 +19,7 @@ resource "libvirt_network" "ocp_network" {
     enabled = true
   }
   xml {
-    xml = file("network.xml")
+    xslt = file("network.xml")
   }
 }
 
