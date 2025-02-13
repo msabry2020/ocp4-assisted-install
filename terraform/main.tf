@@ -13,40 +13,8 @@ provider "libvirt" {
 resource "libvirt_network" "ocp_network" {
   name      = "ocp-net"
   mode      = "nat"
-  domain    = "ocp.local"
-  addresses = ["192.168.122.0/24"]
-
-  dhcp {
-    enabled = true
-
-    # Master Nodes
-    host {
-      mac = "52:54:00:12:34:10"
-      ip  = "192.168.122.11"
-    }
-    host {
-      mac = "52:54:00:12:34:11"
-      ip  = "192.168.122.12"
-    }
-    host {
-      mac = "52:54:00:12:34:12"
-      ip  = "192.168.122.13"
-    }
-
-    # Worker Nodes
-    host {
-      mac = "52:54:00:12:34:20"
-      ip  = "192.168.122.21"
-    }
-    host {
-      mac = "52:54:00:12:34:21"
-      ip  = "192.168.122.22"
-    }
-  }
-
-  dns {
-    enabled = true
-  }
+  domain    = "gcp.lab.cloud"
+  addresses = ["192.168.100.0/24"]
 }
 
 # Base volume for master nodes
@@ -70,6 +38,8 @@ resource "libvirt_domain" "master" {
   network_interface {
     network_id     = libvirt_network.ocp_network.id
     mac            = "52:54:00:12:34:1${count.index}"
+    addresses      = ["192.168.100.1${count.index}"]
+    hostname       = "master-${count.index}"
     wait_for_lease = true
   }
 
@@ -99,6 +69,8 @@ resource "libvirt_domain" "worker" {
   network_interface {
     network_id     = libvirt_network.ocp_network.id
     mac            = "52:54:00:12:34:2${count.index}"
+    addresses      = ["192.168.100.2${count.index}"]
+    hostname       = "worker-${count.index}"    
     wait_for_lease = true
   }
 
