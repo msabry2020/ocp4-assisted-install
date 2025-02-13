@@ -1,0 +1,18 @@
+- name: Install KVM packages
+  package:
+    name:
+      - qemu-kvm
+      - libvirt-daemon-system
+      - libvirt-clients
+      - virt-manager
+      - virt-viewer
+      - virt-install
+      - bridge-utils
+    state: present
+
+- name: Install GUI (Optional)
+  package:
+    name:
+      - gnome-shell
+      - xrdp
+    state: present

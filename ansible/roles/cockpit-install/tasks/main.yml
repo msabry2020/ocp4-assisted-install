@@ -1,0 +1,10 @@
+- name: Install Cockpit
+  package:
+    name: cockpit
+    state: present
+
+- name: Start and enable Cockpit
+  systemd:
+    name: cockpit
+    state: started
+    enabled: yes

@@ -1,0 +1,21 @@
+---
+- name: Prepare KVM host
+  hosts: localhost
+  become: true
+  roles:
+    - role: kvm-setup
+    - role: firewall-config
+    - role: cockpit-install
+
+  tasks:
+    - name: Ensure libvirt service is running
+      systemd:
+        name: libvirtd
+        state: started
+        enabled: yes
+
+    - name: Add user to libvirt group
+      user:
+        name: "{{ ansible_user }}"
+        groups: libvirt
+        append: yes
