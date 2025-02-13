@@ -1,6 +1,8 @@
 - name: Install Cockpit
   package:
-    name: cockpit
+    name: 
+      - cockpit
+      - cockpit-machines
     state: present
 
 - name: Start and enable Cockpit
