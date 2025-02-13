@@ -2,8 +2,7 @@
   package:
     name:
       - qemu-kvm
-      - libvirt-daemon-system
-      - libvirt-clients
+      - libvirt*
       - virt-manager
       - virt-viewer
       - virt-install
