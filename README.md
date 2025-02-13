@@ -25,6 +25,8 @@ ssh-keygen
 cat /home/eng_muhammedsabry/.ssh/id_rsa.pub >> /home/eng_muhammedsabry/.ssh/authorized_keys
 ansible-playbook -i ansible/inventory ansible/playbook.yml
 sudo passwd eng_muhammedsabry
+cd /var/lib/libvirt/images
+sudo wget -O ocp_discovery.iso 'https://api.openshift.com/api/assisted-images...........'
 cd terraform
 terraform init
 terraform apply

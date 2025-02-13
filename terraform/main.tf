@@ -15,11 +15,37 @@ resource "libvirt_network" "ocp_network" {
   mode      = "nat"
   domain    = "ocp.local"
   addresses = ["192.168.122.0/24"]
+
   dhcp {
     enabled = true
+
+    # Master Nodes
+    host {
+      mac = "52:54:00:12:34:10"
+      ip  = "192.168.122.11"
+    }
+    host {
+      mac = "52:54:00:12:34:11"
+      ip  = "192.168.122.12"
+    }
+    host {
+      mac = "52:54:00:12:34:12"
+      ip  = "192.168.122.13"
+    }
+
+    # Worker Nodes
+    host {
+      mac = "52:54:00:12:34:20"
+      ip  = "192.168.122.21"
+    }
+    host {
+      mac = "52:54:00:12:34:21"
+      ip  = "192.168.122.22"
+    }
   }
-  xml {
-    xslt = file("network.xml")
+
+  dns {
+    enabled = true
   }
 }
 
