@@ -22,8 +22,9 @@ git clone https://github.com/msabry2020/ocp4-assisted-install.git
 cd ocp4-assisted-install
 sh pre.sh
 ssh-keygen
-cat ~/.ssh/
-ansible-playbook -i ansible/inventory playbook.yml
+cat /home/eng_muhammedsabry/.ssh/id_rsa.pub >> /home/eng_muhammedsabry/.ssh/authorized_keys
+ansible-playbook -i ansible/inventory ansible/playbook.yml
+sudo passwd eng_muhammedsabry
 cd terraform
 terraform init
 terraform apply
