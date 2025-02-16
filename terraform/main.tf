@@ -60,6 +60,14 @@ resource "libvirt_domain" "master" {
   boot_device {
     dev = ["hd", "cdrom"]
   }
+
+# Enable VNC console
+  graphics {
+    type        = "vnc"
+    listen_type = "address"
+    autoport    = true
+  }
+
 }
 
 # Worker nodes
@@ -85,5 +93,12 @@ resource "libvirt_domain" "worker" {
 
   boot_device {
     dev = ["hd", "cdrom"]
+  }
+
+# Enable VNC console
+  graphics {
+    type        = "vnc"
+    listen_type = "address"
+    autoport    = true
   }
 }
