@@ -52,7 +52,7 @@ resource "libvirt_domain" "master" {
   }
 
   network_interface {
-    network_id     = "default"
+    network_name     = "default"
     addresses      = ["192.168.122.1${count.index}"]
     hostname       = "master-${count.index}"
   }
@@ -61,6 +61,12 @@ resource "libvirt_domain" "master" {
     dev = ["hd", "cdrom"]
   }
 
+# Enable VNC console
+  graphics {
+    type        = "vnc"
+    listen_type = "address"
+    autoport    = true
+  }
 
 }
 
@@ -80,7 +86,7 @@ resource "libvirt_domain" "worker" {
   }
 
   network_interface {
-    network_id     = "default"
+    network_name     = "default"
     addresses      = ["192.168.122.2${count.index}"]
     hostname       = "worker-${count.index}"
   }
@@ -89,4 +95,10 @@ resource "libvirt_domain" "worker" {
     dev = ["hd", "cdrom"]
   }
 
+# Enable VNC console
+  graphics {
+    type        = "vnc"
+    listen_type = "address"
+    autoport    = true
+  }
 }
