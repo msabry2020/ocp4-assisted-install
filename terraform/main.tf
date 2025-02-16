@@ -68,19 +68,11 @@ resource "libvirt_domain" "master" {
     autoport    = true
   }
 
-<<<<<<< HEAD
   # Set CPU mode to host-passthrough
   cpu {
     mode = "host-passthrough"
   }
 
-=======
-  # Set CPU mode to passthrough
-  cpu {
-    mode = "passthrough"
-  }
-
->>>>>>> f0faa2191b7c39442122af9acf3f081b64c08b71
 }
 
 # Worker nodes
@@ -114,17 +106,10 @@ resource "libvirt_domain" "worker" {
     listen_type = "address"
     autoport    = true
   }
-<<<<<<< HEAD
 
   # Set CPU mode to host-passthrough
   cpu {
     mode = "host-passthrough"
   }
-=======
 
-  # Set CPU mode to passthrough
-  cpu {
-    mode = "passthrough"
-  }
->>>>>>> f0faa2191b7c39442122af9acf3f081b64c08b71
 }
