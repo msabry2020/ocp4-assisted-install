@@ -52,7 +52,7 @@ resource "libvirt_domain" "master" {
   }
 
   network_interface {
-    network_id     = libvirt_network.default.id
+    network_id     = "default"
     addresses      = ["192.168.122.1${count.index}"]
     hostname       = "master-${count.index}"
   }
@@ -86,7 +86,7 @@ resource "libvirt_domain" "worker" {
   }
 
   network_interface {
-    network_id     = libvirt_network.default.id
+    network_id     = "default"
     addresses      = ["192.168.122.2${count.index}"]
     hostname       = "worker-${count.index}"
   }
