@@ -68,6 +68,11 @@ resource "libvirt_domain" "master" {
     autoport    = true
   }
 
+  # Set CPU mode to passthrough
+  cpu {
+    mode = "passthrough"
+  }
+
 }
 
 # Worker nodes
@@ -100,5 +105,10 @@ resource "libvirt_domain" "worker" {
     type        = "vnc"
     listen_type = "address"
     autoport    = true
+  }
+
+  # Set CPU mode to passthrough
+  cpu {
+    mode = "passthrough"
   }
 }
