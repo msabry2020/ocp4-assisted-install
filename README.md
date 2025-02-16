@@ -44,3 +44,7 @@ cat <<EOF >> /etc/hosts
 192.168.122.100     prometheus-k8s-openshift-monitoring.apps.gcp.lab.cloud
 192.168.122.100     alertmanager-main-openshift-monitoring.apps.gcp.lab.cloud
 EOF
+
+sudo dnf install haproxy
+sudo cp haproxy.cfg /etc/haproxy/haproxy.cfg
+sudo systemctl enable haproxy --now
