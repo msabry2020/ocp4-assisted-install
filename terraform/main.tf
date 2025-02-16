@@ -61,12 +61,6 @@ resource "libvirt_domain" "master" {
     dev = ["hd", "cdrom"]
   }
 
-# Enable VNC console
-  graphics {
-    type        = "vnc"
-    listen_type = "address"
-    autoport    = true
-  }
 
 }
 
@@ -95,10 +89,4 @@ resource "libvirt_domain" "worker" {
     dev = ["hd", "cdrom"]
   }
 
-# Enable VNC console
-  graphics {
-    type        = "vnc"
-    listen_type = "address"
-    autoport    = true
-  }
 }
