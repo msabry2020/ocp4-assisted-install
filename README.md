@@ -3,7 +3,8 @@ gcloud init
 gcloud compute instances create ocp-kvm \
     --project=openshift-450711 \
     --zone=us-central1-f \
-    --machine-type=n2d-highmem-8 \
+    --min-cpu-platform="Intel Haswell" \
+    --machine-type=n1-highmem-8 \
     --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=default \
     --metadata=ssh-keys=eng_muhammedsabry:ssh-ed25519\ AAAAC3NzaC1lZDI1NTE5AAAAIJGYzvHIIjCZn/tm8hUT7kkwChE7wh/ZW9IyyEHGxCOQ\ eng_muhammedsabry@ocp-kvm \
     --maintenance-policy=MIGRATE \
@@ -17,6 +18,8 @@ gcloud compute instances create ocp-kvm \
     --labels=goog-ec-src=vm_add-gcloud \
     --reservation-affinity=any \
     --enable-nested-virtualization
+
+
 
 sudo dnf -y install git
 git clone https://github.com/msabry2020/ocp4-assisted-install.git
