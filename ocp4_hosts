@@ -1,0 +1,7 @@
+192.168.122.99	api.gcp.lab.cloud
+192.168.122.100	oauth-openshift.apps.gcp.lab.cloud
+192.168.122.100	console-openshift-console.apps.gcp.lab.cloud
+192.168.122.100	grafana-openshift-monitoring.apps.gcp.lab.cloud
+192.168.122.100	thanos-querier-openshift-monitoring.apps.gcp.lab.cloud
+192.168.122.100	prometheus-k8s-openshift-monitoring.apps.gcp.lab.cloud
+192.168.122.100	alertmanager-main-openshift-monitoring.apps.gcp.lab.cloud
