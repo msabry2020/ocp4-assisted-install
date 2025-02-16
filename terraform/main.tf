@@ -17,11 +17,31 @@ resource "libvirt_network" "ocp_network" {
   addresses = ["192.168.100.0/24"]
 }
 
-# Base volume for master nodes
-resource "libvirt_volume" "master_base" {
-  name   = "master-base"
+
+# Create a base volume for the ISO image
+resource "libvirt_volume" "ocp_discovery_iso" {
+  name = "ocp-discovery-iso"
+  pool = "default"
   source = "/var/lib/libvirt/images/ocp_discovery.iso"
-  format = "qcow2"
+  format = "raw"
+}
+
+# Create a base volume for the master VMs (100GB)
+resource "libvirt_volume" "master_disk" {
+  name           = "master-${count.index}"
+  pool           = "default"
+  size           = 100 * 1024 * 1024 * 1024 # 100GB in bytes
+  format         = "qcow2"
+  count          = 3
+}
+
+# Create a base volume for the worker VMs (100GB)
+resource "libvirt_volume" "worker_disk" {
+  name           = "worker-${count.index}"
+  pool           = "default"
+  size           = 100 * 1024 * 1024 * 1024 # 100GB in bytes
+  format         = "qcow2"
+  count          = 2
 }
 
 # Master nodes
@@ -32,7 +52,11 @@ resource "libvirt_domain" "master" {
   memory = 16384
 
   disk {
-    volume_id = libvirt_volume.master_base.id
+    volume_id = element(libvirt_volume.master_disk.*.id, count.index)
+  }
+
+  disk {
+    file = libvirt_volume.ocp_discovery_iso.source
   }
 
   network_interface {
@@ -48,13 +72,6 @@ resource "libvirt_domain" "master" {
   }
 }
 
-# Base volume for worker nodes
-resource "libvirt_volume" "worker_base" {
-  name   = "worker-base"
-  source = "/var/lib/libvirt/images/ocp_discovery.iso"
-  format = "qcow2"
-}
-
 # Worker nodes
 resource "libvirt_domain" "worker" {
   count  = 2
@@ -63,7 +80,11 @@ resource "libvirt_domain" "worker" {
   memory = 8192
 
   disk {
-    volume_id = libvirt_volume.worker_base.id
+    volume_id = element(libvirt_volume.worker_disk.*.id, count.index)
+  }
+
+  disk {
+    file = libvirt_volume.ocp_discovery_iso.source
   }
 
   network_interface {
