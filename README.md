@@ -47,4 +47,5 @@ EOF
 
 sudo dnf install haproxy
 sudo cp haproxy.cfg /etc/haproxy/haproxy.cfg
+sudo setenforce 0
 sudo systemctl enable haproxy --now
