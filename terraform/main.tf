@@ -10,14 +10,6 @@ provider "libvirt" {
   uri = "qemu:///system"
 }
 
-resource "libvirt_network" "ocp_network" {
-  name      = "ocp-net"
-  mode      = "nat"
-  domain    = "gcp.lab.cloud"
-  addresses = ["192.168.100.0/24"]
-}
-
-
 # Create a base volume for the ISO image
 resource "libvirt_volume" "ocp_discovery_iso" {
   name = "ocp-discovery-iso"
@@ -60,11 +52,9 @@ resource "libvirt_domain" "master" {
   }
 
   network_interface {
-    network_id     = libvirt_network.ocp_network.id
-    mac            = "52:54:00:12:34:1${count.index}"
-    addresses      = ["192.168.100.1${count.index}"]
+    network_id     = libvirt_network.default.id
+    addresses      = ["192.168.122.1${count.index}"]
     hostname       = "master-${count.index}"
-    wait_for_lease = true
   }
 
   boot_device {
@@ -88,11 +78,9 @@ resource "libvirt_domain" "worker" {
   }
 
   network_interface {
-    network_id     = libvirt_network.ocp_network.id
-    mac            = "52:54:00:12:34:2${count.index}"
-    addresses      = ["192.168.100.2${count.index}"]
-    hostname       = "worker-${count.index}"    
-    wait_for_lease = true
+    network_id     = libvirt_network.default.id
+    addresses      = ["192.168.122.2${count.index}"]
+    hostname       = "worker-${count.index}"
   }
 
   boot_device {
