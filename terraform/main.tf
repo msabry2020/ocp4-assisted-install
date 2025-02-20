@@ -113,3 +113,52 @@ resource "libvirt_domain" "worker" {
   }
 
 }
+
+# Create a base volume for the ODF VMs (100GB)
+resource "libvirt_volume" "ODF_disk" {
+  name           = "ODF-${count.index}"
+  pool           = "odf"
+  size           = 100 * 1024 * 1024 * 1024 # 100GB in bytes
+  format         = "qcow2"
+  count          = 3
+}
+
+
+# ODF nodes
+resource "libvirt_domain" "ODF" {
+  count  = 3
+  name   = "ODF-${count.index}"
+  vcpu   = 8
+  memory = 24576
+
+  disk {
+    volume_id = element(libvirt_volume.ODF_disk.*.id, count.index)
+  }
+
+  disk {
+    file = libvirt_volume.ocp_discovery_iso.source
+  }
+
+  network_interface {
+    network_name     = "default"
+    addresses      = ["192.168.122.3${count.index}"]
+    hostname       = "ODF-${count.index}"
+  }
+
+  boot_device {
+    dev = ["hd", "cdrom"]
+  }
+
+# Enable VNC console
+  graphics {
+    type        = "vnc"
+    listen_type = "address"
+    autoport    = true
+  }
+
+  # Set CPU mode to host-passthrough
+  cpu {
+    mode = "host-passthrough"
+  }
+
+}
