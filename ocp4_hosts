@@ -1,7 +1,6 @@
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
-10.128.0.10 ocp-kvm.us-central1-f.c.openshift-450711.internal ocp-kvm  # Added by Google
-169.254.169.254 metadata.google.internal  # Added by Google
+
 192.168.122.99  api.gcp.lab.cloud
 192.168.122.100 oauth-openshift.apps.gcp.lab.cloud
 192.168.122.100 console-openshift-console.apps.gcp.lab.cloud
@@ -9,8 +8,12 @@
 192.168.122.100 thanos-querier-openshift-monitoring.apps.gcp.lab.cloud
 192.168.122.100 prometheus-k8s-openshift-monitoring.apps.gcp.lab.cloud
 192.168.122.100 alertmanager-main-openshift-monitoring.apps.gcp.lab.cloud
-192.168.122.252	master1
-192.168.122.199	master2
-192.168.122.197	master3
-192.168.122.22	worker1
-192.168.122.23	worker2
+
+192.168.122.10  master0
+192.168.122.11  master1
+192.168.122.12  master2
+192.168.122.20  worker1
+192.168.122.21  worker2
+192.168.122.30  odf0
+192.168.122.31  odf1
+192.168.122.32  odf2
