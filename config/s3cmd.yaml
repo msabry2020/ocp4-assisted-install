@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: s3cmd-pod
+  labels:
+    app: s3cmd
+spec:
+  containers:
+  - name: s3cmd-container
+    image: python:3.9-alpine
+    command: ["/bin/sh", "-c"]
+    args:
+    - apk add --no-cache py3-pip bash;
+      pip3 install s3cmd;
+      while true; do sleep 30; done;
+    volumeMounts:
+    - name: config-volume
+      mountPath: /root/.s3cfg
+      subPath: s3cfg
+  volumes:
+  - name: config-volume
+    configMap:
+      name: s3cmd-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: s3cmd-config
+data:
+  s3cfg: |
+    [default]
+      access_key = QDHQINS3WGFVEPH9WA15
+      secret_key = yjGFaRd3639TwORrdCbXDhFhPUv8psMhhj1Ug4X9
+      host_base = rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc
+      host_bucket = rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc
+      use_https = True
+      signature_v2 = False    
