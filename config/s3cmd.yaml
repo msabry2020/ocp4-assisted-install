@@ -13,6 +13,13 @@ spec:
     - apk add --no-cache py3-pip bash;
       pip3 install s3cmd;
       while true; do sleep 30; done;
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
     volumeMounts:
     - name: config-volume
       mountPath: /root/.s3cfg
@@ -33,5 +40,5 @@ data:
       secret_key = yjGFaRd3639TwORrdCbXDhFhPUv8psMhhj1Ug4X9
       host_base = rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc
       host_bucket = rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc
-      use_https = True
+      use_https = False 
       signature_v2 = False    
