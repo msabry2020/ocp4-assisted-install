@@ -1,0 +1,65 @@
+controller:
+  serviceType: LoadBalancer  # For external access
+  admin:
+    username: admin
+    password: "admin123"     # Change this!
+  
+  # Required Plugins
+  installPlugins:
+    - pipeline:2.7
+    - git:5.2.0
+    - docker-workflow:2.28
+    - kubernetes:1.31.3
+    - gradle:3.3.3
+    - configuration-as-code:1932.v75cb_b_f1b_698d
+
+  # JCasC Configuration
+  JCasC:
+    defaultConfig: true
+    configScripts:
+      tool-config: |
+        jenkins:
+          tool:
+            jdk:
+              installations:
+              - name: jdk17
+                properties:
+                - installSource:
+                    installers:
+                    - zip:
+                        subdir: jdk-17.0.8+7
+                        label: "jdk-17.0.8+7"
+            gradle:
+              installations:
+              - name: gradle-8.7
+                properties:
+                - installSource:
+                    installers:
+                    - gradleVersion:
+                        version: 8.7
+
+persistence:
+  enabled: true
+  size: 8Gi
+
+agent:
+  enabled: true
+  volumes:
+    - type: EmptyDir
+      mountPath: /var/lib/containers
+  workspaceVolume:
+    type: DynamicPVC
+    requestsSize: 5Gi
+  # Buildah for container builds
+  additionalContainers:
+    - name: buildah
+      image: quay.io/buildah/stable:v1.35.3
+      command: /bin/sh -c
+      args: "sleep infinity"
+      privileged: true
+      volumeMounts:
+        - name: containers
+          mountPath: /var/lib/containers
+
+rbac:
+  create: true
