@@ -4,7 +4,6 @@
 # Reference: https://docs.openshift.com/container-platform/4.17/backup_and_restore/graceful-cluster-shutdown.html
 
 # Variables
-CLUSTER_ADMIN_USER="admin"  # Replace with your cluster admin username
 MASTER_NODES=("master-0" "master-1" "master-2")  # Replace with your master node hostnames
 WORKER_NODES=("worker-0" "worker-1" "odf-0" "odf-1" "odf-2")  # Replace with your worker node hostnames
 SSH_KEY="/home/eng_muhammedsabry/.ssh/id_rsa"  # Replace with the path to your SSH private key
