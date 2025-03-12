@@ -52,8 +52,10 @@ agent:
     requestsSize: 5Gi
   # Buildah for container builds
   additionalContainers:
-    - name: buildah
-      image: quay.io/buildah/stable:v1.35.3
+    - sideContainerName: buildah
+      image: 
+        repository: quay.io/buildah
+        tag: stable:v1.35.3
       command: /bin/sh -c
       args: "sleep infinity"
       privileged: true
