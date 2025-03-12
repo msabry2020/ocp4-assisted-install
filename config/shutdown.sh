@@ -27,35 +27,35 @@ done
 # Step 2: Stop kubelet on worker nodes
 echo "Stopping kubelet on worker nodes..."
 for NODE in "${WORKER_NODES[@]}"; do
-    ssh -i "$SSH_KEY" "$CLUSTER_ADMIN_USER@$NODE" "sudo systemctl stop kubelet"
+    ssh -i "$SSH_KEY" "core@$NODE" "sudo systemctl stop kubelet"
     check_success "Stopping kubelet on $NODE"
 done
 
 # Step 3: Stop kubelet on master nodes
 echo "Stopping kubelet on master nodes..."
 for NODE in "${MASTER_NODES[@]}"; do
-    ssh -i "$SSH_KEY" "$CLUSTER_ADMIN_USER@$NODE" "sudo systemctl stop kubelet"
+    ssh -i "$SSH_KEY" "core@$NODE" "sudo systemctl stop kubelet"
     check_success "Stopping kubelet on $NODE"
 done
 
 # Step 4: Shutdown etcd on master nodes
 echo "Shutting down etcd on master nodes..."
 for NODE in "${MASTER_NODES[@]}"; do
-    ssh -i "$SSH_KEY" "$CLUSTER_ADMIN_USER@$NODE" "sudo systemctl stop etcd"
+    ssh -i "$SSH_KEY" "core@$NODE" "sudo systemctl stop etcd"
     check_success "Shutting down etcd on $NODE"
 done
 
 # Step 5: Power off master nodes
 echo "Powering off master nodes..."
 for NODE in "${MASTER_NODES[@]}"; do
-    ssh -i "$SSH_KEY" "$CLUSTER_ADMIN_USER@$NODE" "sudo shutdown -h now"
+    ssh -i "$SSH_KEY" "core@$NODE" "sudo shutdown -h now"
     check_success "Powering off $NODE"
 done
 
 # Step 6: Power off worker nodes
 echo "Powering off worker nodes..."
 for NODE in "${WORKER_NODES[@]}"; do
-    ssh -i "$SSH_KEY" "$CLUSTER_ADMIN_USER@$NODE" "sudo shutdown -h now"
+    ssh -i "$SSH_KEY" "core@$NODE" "sudo shutdown -h now"
     check_success "Powering off $NODE"
 done
 
