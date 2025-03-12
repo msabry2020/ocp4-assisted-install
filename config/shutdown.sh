@@ -5,7 +5,7 @@
 
 # Variables
 CLUSTER_ADMIN_USER="admin"  # Replace with your cluster admin username
-MASTER_NODES=("master0" "master1" master2")  # Replace with your master node hostnames
+MASTER_NODES=("master0" "master1" "master2")  # Replace with your master node hostnames
 WORKER_NODES=("worker1" "worker2" "odf0" "odf1" "odf2")  # Replace with your worker node hostnames
 SSH_KEY="/home/eng_muhammedsabry/.ssh/id_rsa"  # Replace with the path to your SSH private key
 
