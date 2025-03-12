@@ -19,7 +19,7 @@ check_success() {
 # Step 1: Drain worker nodes
 echo "Draining worker nodes..."
 for NODE in "${WORKER_NODES[@]}"; do
-    oc adm drain "$NODE" --ignore-daemonsets --delete-emptydir-data --force --disable-eviction
+    oc adm drain "$NODE" --ignore-daemonsets --delete-emptydir-data --force --timeout=15s #--disable-eviction 
     check_success "Draining node $NODE"
 done
 
@@ -37,21 +37,14 @@ for NODE in "${MASTER_NODES[@]}"; do
     check_success "Stopping kubelet on $NODE"
 done
 
-# Step 4: Shutdown etcd on master nodes
-echo "Shutting down etcd on master nodes..."
-for NODE in "${MASTER_NODES[@]}"; do
-    ssh -i "$SSH_KEY" "core@$NODE" "sudo systemctl stop etcd"
-    check_success "Shutting down etcd on $NODE"
-done
-
-# Step 5: Power off master nodes
+# Step 4: Power off master nodes
 echo "Powering off master nodes..."
 for NODE in "${MASTER_NODES[@]}"; do
     ssh -i "$SSH_KEY" "core@$NODE" "sudo shutdown -h now"
     check_success "Powering off $NODE"
 done
 
-# Step 6: Power off worker nodes
+# Step 5: Power off worker nodes
 echo "Powering off worker nodes..."
 for NODE in "${WORKER_NODES[@]}"; do
     ssh -i "$SSH_KEY" "core@$NODE" "sudo shutdown -h now"
