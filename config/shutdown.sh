@@ -20,7 +20,7 @@ check_success() {
 # Step 1: Drain worker nodes
 echo "Draining worker nodes..."
 for NODE in "${WORKER_NODES[@]}"; do
-    oc adm drain "$NODE" --ignore-daemonsets --delete-emptydir-data --force
+    oc adm drain "$NODE" --ignore-daemonsets --delete-emptydir-data --force --disable-eviction
     check_success "Draining node $NODE"
 done
 
