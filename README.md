@@ -1,11 +1,8 @@
 # ocp4-assisted-install
 gcloud init
 gcloud compute instances create ocp-kvm \
-    --project=openshift-450711 \
-    --zone=us-central1-f \
     --min-cpu-platform="Intel Haswell" \
-    --machine-type=n1-highmem-8 \
-    --metadata=ssh-keys=eng_muhammedsabry:ssh-ed25519\ AAAAC3NzaC1lZDI1NTE5AAAAIJGYzvHIIjCZn/tm8hUT7kkwChE7wh/ZW9IyyEHGxCOQ\ eng_muhammedsabry@ocp-kvm \
+    --machine-type=n1-highmem-16 \
     --create-disk=auto-delete=yes,boot=yes,device-name=instance-20250213-110808,image=projects/centos-cloud/global/images/centos-stream-8-v20240515,mode=rw,size=200,type=pd-balanced \
     --shielded-integrity-monitoring \
     --enable-nested-virtualization
