@@ -1,9 +1,10 @@
 # ocp4-assisted-install
 gcloud init
 gcloud compute instances create ocp-kvm \
+    --zone=us-central1-c \
     --min-cpu-platform="Intel Haswell" \
-    --machine-type=n1-highmem-16 \
-    --create-disk=auto-delete=yes,boot=yes,device-name=instance-20250213-110808,image=projects/centos-cloud/global/images/centos-stream-8-v20240515,mode=rw,size=200,type=pd-balanced \
+    --machine-type=custom-8-153600-ext \
+    --create-disk=auto-delete=yes,boot=yes,device-name=ocp-kvm,image=projects/centos-cloud/global/images/centos-stream-9-v20250610,mode=rw,size=200,type=pd-balanced \
     --shielded-integrity-monitoring \
     --enable-nested-virtualization
 
