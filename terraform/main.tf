@@ -53,9 +53,9 @@ resource "libvirt_domain" "master" {
 
   network_interface {
     network_name     = "default"
-    addresses      = ["192.168.122.1${count.index}"]
+    #addresses      = ["192.168.122.1${count.index}"]
     mac            = "52:54:00:38:3D:0${count.index}"
-    hostname       = "master-${count.index}"
+    #hostname       = "master-${count.index}"
   }
 
   boot_device {
@@ -93,9 +93,9 @@ resource "libvirt_domain" "worker" {
 
   network_interface {
     network_name     = "default"
-    addresses      = ["192.168.122.2${count.index}"]
+    #addresses      = ["192.168.122.2${count.index}"]
     mac            = "52:54:00:38:3D:1${count.index}"
-    hostname       = "worker-${count.index}"
+    #hostname       = "worker-${count.index}"
   }
 
   boot_device {
