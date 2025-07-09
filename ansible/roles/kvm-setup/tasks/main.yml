@@ -16,4 +16,5 @@
       - xrdp
       - tigervnc-server
       - chromium
+      - bind
     state: present
