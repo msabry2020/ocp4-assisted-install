@@ -26,6 +26,9 @@ sudo passwd $USER
 sudo usermod -aG libvirt $USER
 cd /var/lib/libvirt/images
 sudo wget -O ocp_discovery.iso 'https://api.openshift.com/api/assisted-images...........'
+sudo chown qemu:qemu ocp_discovery.iso
+sudo echo 'net.ipv4.ip_forward=1' >> /etc/sysctl.conf
+sudo sysctl -p
 cd terraform
 terraform init
 terraform apply
