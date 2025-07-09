@@ -14,5 +14,5 @@
     name:
       - gnome-shell
       - xrdp
-      - tigervnc
+      - tigervnc-server
     state: present
