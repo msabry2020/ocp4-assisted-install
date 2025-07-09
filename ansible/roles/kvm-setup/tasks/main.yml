@@ -15,4 +15,5 @@
       - gnome-shell
       - xrdp
       - tigervnc-server
+      - chromium
     state: present
